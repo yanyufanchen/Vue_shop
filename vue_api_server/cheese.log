@@ -26,3 +26,7 @@
 [2019-07-30T21:02:29.877] [DEBUG] cheese - admin
 [2019-07-30T21:02:29.895] [DEBUG] cheese - null
 [2019-07-30T21:02:29.895] [DEBUG] cheese - null
+[2019-07-31T19:39:11.701] [DEBUG] cheese - login => username:admin,password:123456
+[2019-07-31T19:39:11.716] [DEBUG] cheese - admin
+[2019-07-31T19:39:11.724] [DEBUG] cheese - null
+[2019-07-31T19:39:11.725] [DEBUG] cheese - null
