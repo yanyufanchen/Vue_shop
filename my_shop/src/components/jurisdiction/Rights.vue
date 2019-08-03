@@ -32,7 +32,7 @@ export default {
   methods: {
     async getRight() {
       const { data: res } = await gitRights_api('list')
-      console.log(res.data)
+      // console.log(res.data)
       this.rightsList=res.data
     }
   },

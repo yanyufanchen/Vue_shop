@@ -37,11 +37,29 @@ export const editUser_api = (params) => {
 export const delete_api = (params) => {
         return axios.delete(`users/${params}`)
     }
-    // rights权限列表获取
+    // rights权限列表list、tree获取
 export const gitRights_api = (params) => {
         return axios.get(`rights/${params}`)
     }
-    // roles权限列表获取
-export const getRights_api = (params) => {
+    // rolesh角色列表获取
+export const getRoles_api = (params) => {
     return axios.get('roles')
+}
+
+// roles指定权限删除
+export const deleteRoles_api = (params) => {
+    return axios.delete(`roles/${params.rolesId}/rights/${params.rightsId}`)
+}
+// roles角色的权限修改分配
+export const amendRolesRights_api = (roleId,params) => {
+    return axios.post(`roles/${roleId}/rights`,{rids:params})
+}
+// goods商品列表获取
+export const getGoods_api = (params) => {
+    return axios.get('goods',{ params })
+}
+
+// categories商品列表获取
+export const getCategoriesList_api = (params) => {
+    return axios.get('categories',{ params })
 }

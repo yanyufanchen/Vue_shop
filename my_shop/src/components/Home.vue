@@ -87,7 +87,7 @@ export default {
       //存储侧边栏子栏请求地址
       window.sessionStorage.setItem('activePath', activePath)
       this.activePath = activePath
-      console.log(activePath)
+      // console.log(activePath)
     },
     toggle() {
       //切换关闭侧边栏
@@ -96,7 +96,7 @@ export default {
   },
   created() {
     this.activePath = window.sessionStorage.getItem('activePath')
-    console.log(this.activePath)
+    // console.log(this.activePath)
     this.getMenuList() //执行函数  刷新home页面就请求侧边栏
   }
 }
