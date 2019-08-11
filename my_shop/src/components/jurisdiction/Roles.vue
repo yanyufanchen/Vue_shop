@@ -14,9 +14,7 @@
       </el-row>
 
       <!-- 角色列表区域 -->
-      <!-- row-key="id" 是2019年3月提供的新特性，
-if there's nested data, rowKey is required.
-      如果这是一个嵌套的数据，rowkey 是必须添加的属性-->
+      <!-- row-key="id" 是2019年3月提供的新特性，if there's nested data, rowKey is required.如果这是一个嵌套的数据，rowkey 是必须添加的属性-->
       <el-table :data="roleList" border>
         <!-- 添加展开列 -->
         <el-table-column type="expand">
@@ -25,6 +23,7 @@ if there's nested data, rowKey is required.
             <el-row
               v-for="(item1 , index1) in scope.row.children"
               :key="index1"
+              row-key="id"
               :class="['bdbottom',index1==0? 'bdtop':'']"
             >
               <el-col :span="5">
@@ -94,7 +93,8 @@ if there's nested data, rowKey is required.
 		node-key="id"
 		:default-checked-keys="difKeys"
 		ref="treeRef"
-		></el-tree>
+		>
+        </el-tree>
         <span slot="footer" class="dialog-footer">
           <el-button @click="rightsDialogVisible = false" >取 消</el-button>
           <el-button type="primary" @click="allotRights">确 定</el-button>
@@ -105,7 +105,7 @@ if there's nested data, rowKey is required.
 </template>
 
 <script>
-import { getRoles_api, deleteRoles_api, gitRights_api,amendRolesRights_api } from '@/api'
+import { getRoles_api, deleteRoles_api, gitRights_api, amendRolesRights_api } from '@/api'
 export default {
 data() {
     return {
@@ -167,7 +167,6 @@ methods: {
         const { data: res } = await gitRights_api('tree')
 	    // console.log(res.data);
 	    this.dataList=res.data
-  
 	    // 然后将所有的权限可视化渲染
 	    this.getDefKey(role,this.difKeys)
 		  // console.log(this.difKeys);
@@ -192,12 +191,8 @@ methods: {
 		const isStr=keys.join(',')  
 		// console.log(isStr);
 		// console.log(this.rolesId);
-		
 		const {data:res}=await amendRolesRights_api(this.rolesId,isStr)
 		// console.log(res);
-		
-		
-		
 	}
 },
 created() {
@@ -207,14 +202,6 @@ created() {
 </script>
 
 <style lang="less" scoped>
-// .text {
-//   font-size: 14px;
-// }
-
-// .item {
-//   padding: 18px 0;
-// }
-
 .box-card {
   width: 100%;
 }

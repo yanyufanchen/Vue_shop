@@ -25,10 +25,11 @@
             router
             :collapse="toggle_menu"
             :collapse-transition="false"
+            ref="menuRef"
           >
             
 			<!-- 一级菜单 -->
-            <el-submenu :index="index+''" v-for="(item,index ) in menulist " :key="item.id">
+            <el-submenu :index="index+''"  v-for="(item,index ) in menulist " :key="item.id">
               <template slot="title" class="first">
                 <i :class=" iconObj[item.id] " class="title_icon"></i>
                 <span>{{item.authName}}</span>
@@ -59,47 +60,55 @@
 </template>
 
 <script>
-import { asize_api } from '@/api'
-export default {
-  data() {
-    return {
-      menulist: [],
-      iconObj: {
-        '125': 'iconfont icon-user',
-        '103': 'iconfont icon-tijikongjian',
-        '101': 'iconfont icon-shangpin',
-        '102': 'iconfont icon-danju',
-        '145': 'iconfont icon-baobiao'
-      },
-      toggle_menu: false,
-      // 被激活的链接地址
-      activePath: ''
+    import { asize_api } from '@/api'
+    export default {
+        data() {
+            return {
+                menulist: [],
+                iconObj: {
+                  '125': 'iconfont icon-user',
+                  '103': 'iconfont icon-tijikongjian',
+                  '101': 'iconfont icon-shangpin',
+                  '102': 'iconfont icon-danju',
+                  '145': 'iconfont icon-baobiao'
+                },
+                toggle_menu: false,
+                // 被激活的链接地址
+                activePath: ''
+            }
+        },
+        methods: {
+            async getMenuList() {    
+                //刷新home页面就请求侧边栏
+                const { data: res } = await asize_api()
+                console.log(res);
+                if (res.meta.status !== 200) return this.$message.error(res.meta.msg)
+                this.menulist = res.data
+            },
+            saveNavState(activePath) {
+                //存储侧边栏子栏请求地址
+                window.sessionStorage.setItem('activePath', activePath)
+                this.activePath = activePath
+                // console.log(activePath)
+            },
+            toggle() {
+                //切换关闭侧边栏
+                this.toggle_menu = !this.toggle_menu
+            }
+        },
+        created() {
+            this.activePath = window.sessionStorage.getItem('activePath')
+            // console.log(this.activePath)
+            this.getMenuList() //执行函数  刷新home页面就请求侧边栏
+        },
+        mounted(){
+            let url = window.location.href
+            let path=url.slice(url.lastIndexOf('/')+1)
+            if ( path == 'welcome' ) {
+                this.$refs.menuRef.close()
+            }
+        }
     }
-  },
-  methods: {
-    async getMenuList() {
-      //刷新home页面就请求侧边栏
-      const { data: res } = await asize_api()
-      if (res.meta.status != '200') return this.$message.error(res.meta.msg)
-      this.menulist = res.data
-    },
-    saveNavState(activePath) {
-      //存储侧边栏子栏请求地址
-      window.sessionStorage.setItem('activePath', activePath)
-      this.activePath = activePath
-      // console.log(activePath)
-    },
-    toggle() {
-      //切换关闭侧边栏
-      this.toggle_menu = !this.toggle_menu
-    }
-  },
-  created() {
-    this.activePath = window.sessionStorage.getItem('activePath')
-    // console.log(this.activePath)
-    this.getMenuList() //执行函数  刷新home页面就请求侧边栏
-  }
-}
 </script>
 
 <style lang="less" scoped>

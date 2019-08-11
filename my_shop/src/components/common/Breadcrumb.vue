@@ -12,14 +12,12 @@ export default{
       props:["value"],
        data(){
           return{
-             activePath:''
+             activePath:'welcome'
           }
        } ,
       methods: {
          toHome(){
-            window.sessionStorage.setItem('activePath', this.activePath)
-            // console.log(111);
-            window.location.reload()
+            window.sessionStorage.setItem('activePath', '')
             
          }
       },

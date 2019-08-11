@@ -20,7 +20,6 @@
       <el-badge :value="2" class="item" type="warning">
         <el-button size="small">待回复</el-button>
       </el-badge>
-
       <el-dropdown trigger="click">
         <span class="el-dropdown-link">
           点我查看
@@ -42,7 +41,6 @@
     </el-card>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -55,7 +53,6 @@ export default {
   mounted() {}
 }
 </script>
-
 <style lang="less" scoped>
 .item {
   margin-top: 10px;
